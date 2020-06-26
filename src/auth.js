@@ -3,6 +3,20 @@ const readline = require('readline');
 const {google} = require('googleapis');
 const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
+const client = new Discord.Client();
+
+
+const Tony = new Discord.WebhookClient('725459542384836719', 'FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB');
+const ChrisQ = new Discord.WebhookClient('725497950788386837', 'kyW9IFehuRhE79k9jmgCUT1FrmFOcpfAGsXSnAG-DR1xMuOJd_DUfuGW59JHP-OA8zAo');
+const Alexandre = new Discord.WebhookClient('725498023555104861', 'jXhhBlsLjQrMetqtcUssgChDSb8L6ZEVbu237r-o86g4M_6KoQdgIx6a9RjNJToOKO3o');
+const Talita = new Discord.WebhookClient('725498298722680845', '51aP38X372pZewqMLXikZVnwYr3cPj37Ttp2oMHcKKOVRCtMdHz4C5ebO6XVJWeZiJMw');
+const Leo = new Discord.WebhookClient('725498396093317211', 'DUUEY6FqGgC_iS9P7X0Fzg8rTf_osO6wWB2xhTbQELN6LyY-21dPJon6RIE7YsXIhBS0');
+const Boris = new Discord.WebhookClient('725498504184856577', 'NB2oa41A6ZmuToQHy9KEu6wXLtd3JUQBah5Lv3E80me5ue3BIZXapqp8ezUHqzF_M_nV');
+const Elaine = new Discord.WebhookClient('725498592047005917', 'n7ABhg3SRrpiCGJuet3lJLVW_RQZPYFyHiAFU55qZb_xsqPxKR9yty2257XwhOHKzc8-');
+const ChrisE = new Discord.WebhookClient('725498661941018705', 'bj3kidsGvkCDZNR-MV1GqAQA7U4BwVcJdSo8k41_F8xGYWeWcS61-TjW9uLvXDJPyX4X');;
+
+
+
 
 
 // If modifying these scopes, delete token.json.
@@ -13,11 +27,13 @@ const SCOPES = ['https://www.googleapis.com/auth/classroom.coursework.me'];
 const TOKEN_PATH = 'token.json';
 
 // Load client secrets from a local file.
+
 fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Classroom API.
   authorize(JSON.parse(content), listWorks);
 });
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -70,34 +86,238 @@ function getNewToken(oAuth2Client, callback) {
 }
 
 /**
- * Lists the first 10 courses the user has access to.
- *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+* Aplicação em si, daqui para  baixo que a magica de fato começa
  */
+function onServer(){
+  client.on('ready', () => {
+    console.log('I am ready!');
+  });
+  client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XvVD0Q.GC0EwXCwtl6KK8YiR2dhbppBxM4');
+  }
+
 
 function listWorks(auth){
   const classroom = google.classroom({version: 'v1', auth});
+  onServer()
+
+  client.on('message', message => {
+   
+    if (message.content === 'historia') {
+      classroom.courses.courseWork.list({
+        courseId:60369455656,
+      },(err, res) => {
+        if (err) return console.error('The API returned an error: ' + err);
+        const courseWork = res.data.courseWork;
+    
+        if (courseWork && courseWork.length) {
+          console.log('Courses:');
+          const lastWork = courseWork.pop()
+          const embed = new MessageEmbed()
+          .setTitle(lastWork.title)
+          .setColor(0x0000FF)
+          .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+           //message.channel.send(embed);
+          //leo.send(embed)
+          
+        } else {
+          console.log('No courses found.');
+        }
+    
+      });
+    }
+  });
+
+  client.on('message', message => {
+
+    if(message.content === 'fisica'){
   classroom.courses.courseWork.list({
     courseId:24205361123,
+     },(err, res) => {
+       if (err) return console.error('The API returned an error: ' + err);
+      const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+        Tony.send(embed);
+       //message.channel.send(embed);
+      
+
+    } else {
+      console.log('No courses found.');
+    }
+    
+  });
+}
+});
+
+client.on('message', message => {
+  if(message.content === 'portugues'){  
+
+  classroom.courses.courseWork.list({
+    courseId:60369455656,
+  },(err, res) => {
+    if (err) return console.error('The API returned an error: ' + err);
+    const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+        Alexandre.send(embed);
+      
+    } else {
+      console.log('No courses found.');
+    }
+    
+  });
+}
+});
+
+client.on('message', message => {
+  if(message.content === 'geografia'){  
+
+  classroom.courses.courseWork.list({
+    courseId:60373040356,
+  },(err, res) => {
+    if (err) return console.error('The API returned an error: ' + err);
+    const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+        Talita.send(embed);
+      
+
+    } else {
+      console.log('No courses found.');
+    }
+    
+  });
+}
+});
+
+client.on('message', message => {
+  if(message.content === 'matematica'){  
+
+  classroom.courses.courseWork.list({
+    courseId:61746734185,
+  },(err, res) => {
+    if (err) return console.error('The API returned an error: ' + err);
+    const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+       Boris.send(embed);
+      
+
+    } else {
+      console.log('No courses found.');
+   }
+    
+  });
+}
+});
+
+  
+client.on('message', message => {
+  if(message.content === 'biologia'){  
+  
+  classroom.courses.courseWork.list({
+    courseId:60439137882,
+  },(err, res) => {
+    if (err) return console.error('The API returned an error: ' + err);
+    const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+      Elaine.send(embed);
+      
+
+    } else {
+      console.log('No courses found.');
+    }
+    
+  });
+}
+});
+
+client.on('message', message => {
+  if(message.content === 'ingles'){  
+
+  classroom.courses.courseWork.list({
+    courseId:60421191545,
+  },(err, res) => {
+    if (err) return console.error('The API returned an error: ' + err);
+    const courseWork = res.data.courseWork;
+
+    if (courseWork && courseWork.length) {
+      console.log('Courses:');
+      const lastWork = courseWork.pop()
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+       ChrisE.send(embed);
+      
+
+    } else {
+      console.log('No courses found.');
+      }
+    
+  });
+}
+});
+
+
+client.on('message', message => {
+  if(message.content === 'quimica'){  
+  classroom.courses.courseWork.list({
+    courseId:60382416186,
   },(err, res) => {
     if (err) return console.error('The API returned an error: ' + err);
     const courseWork = res.data.courseWork;
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const Tony = new Discord.WebhookClient('725459542384836719', 'FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB');
-      courseWork.forEach((courseWorks) => {
-        const embed = new MessageEmbed()
-        .setTitle(courseWorks.title)
-        .setColor(0xffffff)
-        .setDescription(courseWorks.description);
-        Tony.send(embed);
-      });
+      const lastWork = courseWork.pop();
+      const embed = new MessageEmbed()
+      .setTitle(lastWork.title)
+      .setColor(0x0000FF)
+      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
+        ChrisQ.send(embed);
+      
+
     } else {
       console.log('No courses found.');
     }
+  });
+    } 
 
   });
 }
+
+
 
 
  

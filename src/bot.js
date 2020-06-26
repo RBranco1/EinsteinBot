@@ -1,19 +1,26 @@
 'use strict';
-const {google} = require('googleapis');
-const classroom = google.classroom('v1');
+
 const Discord = require('discord.js');
-const { MessageEmbed } = require('discord.js');
-const TOKEN = 'token.json';
-const request = require('request');
-const http = require('http');
 
-  request(`https://classroom.googleapis.com/v1/courses/24205361123/courseWork?key=AIzaSyAw3fnApXs__LstjV7v0xypyFUu74E-h84/authorization=${TOKEN}`,
-  (error, response, body) =>{
-    console.log(body)
-  });
+const client = new Discord.Client();
 
+function onServer(){
+client.on('ready', () => {
+  console.log('I am ready!');
+});
+}
 
 
+
+client.on('message', message => {
+ 
+  if (message.content === 'historia') {
+    message.channel.send('pong');
+  }
+});
+
+// Log our bot in using the token from https://discordapp.com/developers/applications/me
+client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XvVD0Q.GC0EwXCwtl6KK8YiR2dhbppBxM4');
 
 
 const Tony = new Discord.WebhookClient('725459542384836719', 'FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB');
@@ -27,23 +34,8 @@ const ChrisE = new Discord.WebhookClient('725498661941018705', 'bj3kidsGvkCDZNR-
 
 
 
-const embed = new MessageEmbed()
-.setTitle('Tarefa')
-.setColor(0xffffff)
-.setDescription('Descrição de tarefa foda link');
+onServer()
 
-
-
-
-
-/* Tony.send(embed);
-ChrisQ.send(embed);
-Alexandre.send(embed);
-Talita.send(embed);
-Leo.send(embed);
-Boris.send(embed);
-Elaine.send(embed);
-ChrisE.send(embed); */
 
 
 
