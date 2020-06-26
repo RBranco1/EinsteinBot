@@ -92,7 +92,7 @@ function onServer(){
   client.on('ready', () => {
     console.log('I am ready!');
   });
-  client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XvVD0Q.GC0EwXCwtl6KK8YiR2dhbppBxM4');
+  client.login('');
   }
 
 
@@ -101,23 +101,21 @@ function listWorks(auth){
   onServer()
 
   client.on('message', message => {
-   
     if (message.content === 'historia') {
       classroom.courses.courseWork.list({
-        courseId:60369455656,
+        courseId:60327930072,
       },(err, res) => {
         if (err) return console.error('The API returned an error: ' + err);
-        const courseWork = res.data.courseWork;
-    
+        const courseWork = res.data.courseWork; 
         if (courseWork && courseWork.length) {
           console.log('Courses:');
-          const lastWork = courseWork.pop()
+          const lastWork = courseWork.shift()
           const embed = new MessageEmbed()
           .setTitle(lastWork.title)
           .setColor(0x0000FF)
           .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
            //message.channel.send(embed);
-          //leo.send(embed)
+          Leo.send(embed)
           
         } else {
           console.log('No courses found.');
@@ -138,7 +136,7 @@ function listWorks(auth){
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -166,7 +164,7 @@ client.on('message', message => {
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -192,7 +190,7 @@ client.on('message', message => {
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -219,7 +217,7 @@ client.on('message', message => {
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -247,7 +245,7 @@ client.on('message', message => {
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -274,7 +272,7 @@ client.on('message', message => {
 
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop()
+      const lastWork = courseWork.shift()
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
@@ -300,7 +298,7 @@ client.on('message', message => {
     const courseWork = res.data.courseWork;
     if (courseWork && courseWork.length) {
       console.log('Courses:');
-      const lastWork = courseWork.pop();
+      const lastWork = courseWork.shift();
       const embed = new MessageEmbed()
       .setTitle(lastWork.title)
       .setColor(0x0000FF)
