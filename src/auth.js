@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 const client = new Discord.Client();
 
+var date = new Date();
 
 
 const Tony = new Discord.WebhookClient('725459542384836719', 'FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB');
@@ -92,9 +93,16 @@ function getNewToken(oAuth2Client, callback) {
 function onServer(){
   client.on('ready', () => {
     console.log('I am ready!');
+   
   });
-  client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XvoJJg.DR47gn1PX75H64X9lDkTtdsCAK0');
+  client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XwXHGA.EPL8rVyNOXXQeWZFxog5gZJ919A');
   }
+
+function getAula(message, aula){
+  if(message.content === 'aula'){
+    message.channel.send("Bom dia! parece que a aula agora é: " + aula);
+}
+} 
 
 
 function listWorks(auth){
@@ -311,7 +319,7 @@ client.on('message', message => {
       console.log('No courses found.');
     }
   });
-    } 
+    }
 
   });
 
@@ -321,6 +329,19 @@ client.on('message', message => {
       message.channel.send('Ta ai para você <3 \n Raphael Branco Pieroni \n Felipe Abreu Mendes \n Lucas Amano Shinohara \n  Thiago Tanaka Ferreira \n https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform');
     }
   })
+
+  client.on('message', message => {
+    var dia = date.getDay();
+    var horas = date.getHours();
+    var minutos = date.getMinutes();
+    if(dia == 1, horas >= 8 && horas < 10, minutos <= 30){
+      getAula(message, "quimica")
+    } else if(dia ==1, horas >= 9 && horas < 11, minutos < 15){
+      getAula(message, "filosofia")
+    } else if(dia == 1, horas >= 10 && horas <= 12)
+    
+    }
+  )
 
 }
 
