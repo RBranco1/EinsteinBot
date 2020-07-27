@@ -1,41 +1,59 @@
-const fs = require('fs');
-const readline = require('readline');
-const {google} = require('googleapis');
-const Discord = require('discord.js');
-const { MessageEmbed } = require('discord.js');
+const fs = require("fs");
+const readline = require("readline");
+const { google } = require("googleapis");
+const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const client = new Discord.Client();
 
 var date = new Date();
 
-
-const Tony = new Discord.WebhookClient('725459542384836719', 'FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB');
-const ChrisQ = new Discord.WebhookClient('725497950788386837', 'kyW9IFehuRhE79k9jmgCUT1FrmFOcpfAGsXSnAG-DR1xMuOJd_DUfuGW59JHP-OA8zAo');
-const Alexandre = new Discord.WebhookClient('725498023555104861', 'jXhhBlsLjQrMetqtcUssgChDSb8L6ZEVbu237r-o86g4M_6KoQdgIx6a9RjNJToOKO3o');
-const Talita = new Discord.WebhookClient('725498298722680845', '51aP38X372pZewqMLXikZVnwYr3cPj37Ttp2oMHcKKOVRCtMdHz4C5ebO6XVJWeZiJMw');
-const Leo = new Discord.WebhookClient('725498396093317211', 'DUUEY6FqGgC_iS9P7X0Fzg8rTf_osO6wWB2xhTbQELN6LyY-21dPJon6RIE7YsXIhBS0');
-const Boris = new Discord.WebhookClient('725498504184856577', 'NB2oa41A6ZmuToQHy9KEu6wXLtd3JUQBah5Lv3E80me5ue3BIZXapqp8ezUHqzF_M_nV');
-const Elaine = new Discord.WebhookClient('725498592047005917', 'n7ABhg3SRrpiCGJuet3lJLVW_RQZPYFyHiAFU55qZb_xsqPxKR9yty2257XwhOHKzc8-');
-const ChrisE = new Discord.WebhookClient('725498661941018705', 'bj3kidsGvkCDZNR-MV1GqAQA7U4BwVcJdSo8k41_F8xGYWeWcS61-TjW9uLvXDJPyX4X');;
-
-
-
-
+const Tony = new Discord.WebhookClient(
+  "725459542384836719",
+  "FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB"
+);
+const ChrisQ = new Discord.WebhookClient(
+  "725497950788386837",
+  "kyW9IFehuRhE79k9jmgCUT1FrmFOcpfAGsXSnAG-DR1xMuOJd_DUfuGW59JHP-OA8zAo"
+);
+const Alexandre = new Discord.WebhookClient(
+  "725498023555104861",
+  "jXhhBlsLjQrMetqtcUssgChDSb8L6ZEVbu237r-o86g4M_6KoQdgIx6a9RjNJToOKO3o"
+);
+const Talita = new Discord.WebhookClient(
+  "725498298722680845",
+  "51aP38X372pZewqMLXikZVnwYr3cPj37Ttp2oMHcKKOVRCtMdHz4C5ebO6XVJWeZiJMw"
+);
+const Leo = new Discord.WebhookClient(
+  "725498396093317211",
+  "DUUEY6FqGgC_iS9P7X0Fzg8rTf_osO6wWB2xhTbQELN6LyY-21dPJon6RIE7YsXIhBS0"
+);
+const Boris = new Discord.WebhookClient(
+  "725498504184856577",
+  "NB2oa41A6ZmuToQHy9KEu6wXLtd3JUQBah5Lv3E80me5ue3BIZXapqp8ezUHqzF_M_nV"
+);
+const Elaine = new Discord.WebhookClient(
+  "725498592047005917",
+  "n7ABhg3SRrpiCGJuet3lJLVW_RQZPYFyHiAFU55qZb_xsqPxKR9yty2257XwhOHKzc8-"
+);
+const ChrisE = new Discord.WebhookClient(
+  "725498661941018705",
+  "bj3kidsGvkCDZNR-MV1GqAQA7U4BwVcJdSo8k41_F8xGYWeWcS61-TjW9uLvXDJPyX4X"
+);
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/classroom.coursework.me'];
+const SCOPES = ["https://www.googleapis.com/auth/classroom.coursework.me"];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = "token.json";
 
 // Load client secrets from a local file.
 
-fs.readFile('credentials.json', (err, content) => {
-  if (err) return console.log('Error loading client secret file:', err);
+fs.readFile("credentials.json", (err, content) => {
+  if (err) return console.log("Error loading client secret file:", err);
   // Authorize a client with credentials, then call the Google Classroom API.
   authorize(JSON.parse(content), listWorks);
 });
-
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -44,9 +62,12 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-  const {client_secret, client_id, redirect_uris} = credentials.installed;
+  const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
-      client_id, client_secret, redirect_uris[0]);
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
@@ -64,23 +85,23 @@ function authorize(credentials, callback) {
  */
 function getNewToken(oAuth2Client, callback) {
   const authUrl = oAuth2Client.generateAuthUrl({
-    access_type: 'offline',
+    access_type: "offline",
     scope: SCOPES,
   });
-  console.log('Authorize this app by visiting this url:', authUrl);
+  console.log("Authorize this app by visiting this url:", authUrl);
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
-  rl.question('Enter the code from that page here: ', (code) => {
+  rl.question("Enter the code from that page here: ", (code) => {
     rl.close();
     oAuth2Client.getToken(code, (err, token) => {
-      if (err) return console.error('Error retrieving access token', err);
+      if (err) return console.error("Error retrieving access token", err);
       oAuth2Client.setCredentials(token);
       // Store the token to disk for later program executions
       fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
         if (err) return console.error(err);
-        console.log('Token stored to', TOKEN_PATH);
+        console.log("Token stored to", TOKEN_PATH);
       });
       callback(oAuth2Client);
     });
@@ -88,268 +109,355 @@ function getNewToken(oAuth2Client, callback) {
 }
 
 /**
-* Aplicação em si, daqui para  baixo que a magica de fato começa
+ * Aplicação em si, daqui para  baixo que a magica de fato começa
  */
-function onServer(){
-  client.on('ready', () => {
-    console.log('I am ready!');
-   
+function onServer() {
+  client.on("ready", () => {
+    console.log("I am ready!");
   });
-  client.login('NzI1ODcyNjI2NDE2NzQ2NDk3.XwXHGA.EPL8rVyNOXXQeWZFxog5gZJ919A');
+  client.login("");
+}
+
+function listWorks(auth) {
+  const classroom = google.classroom({ version: "v1", auth });
+  onServer();
+
+  client.on("message", (message) => {
+    if (message.content === "historia") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60327930072,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            //message.channel.send(embed);
+            Leo.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "fisica") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 24205361123,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Tony.send(embed);
+            //message.channel.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "portugues") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60369455656,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Alexandre.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "geografia") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60373040356,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Talita.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "matematica") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 61746734185,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Boris.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "biologia") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60439137882,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Elaine.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "ingles") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60421191545,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            ChrisE.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "quimica") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60382416186,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            ChrisQ.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
+    if (message.content === "chamada") {
+      message.channel.send(
+        `Ta ai para você <3 \n Raphael Branco Pieroni \n Felipe Abreu Mendes \n Lucas Amano Shinohara \n  Thiago Tanaka Ferreira \n  https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1550906963=A&entry.75214940=${"Elaine+Aparecida+Monteiro"}&entry.1232749539=${"Biologia"}`
+      );
+    }
+  });
+
+  /* id do formulario
+1(serie) = 516042267
+2(turma) = 1550906963
+3(nome) = 1194150185 
+4(professor) = 75214940
+5(aula) = 1232749539 */
+
+
+  function getAula(message, aula, name) {
+    message.channel.send(
+      "Bom dia! parece que a aula agora é... **" +
+        aula +
+        `**\nPrencha a chamada por aqui <3 \nRaphael Branco Pieroni  
+Links: https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Raphael+Branco+Pieroni&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
+\nFelipe Abreu Mendes 
+https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Felipe+Abreu+Mendes&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
+\nLucas Amano Shinohara 
+https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Lucas+Amano+Shinohara&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
+\nThiago Tanaka Ferreira \n
+https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Thiago+Tanaka+Ferreira&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
+`
+        
+    );
   }
 
-function getAula(message, aula){
-  if(message.content === 'aula'){
-    message.channel.send("Bom dia! parece que a aula agora é: " + aula);
-}
-} 
+  client.on("message", (message) => {
+    if (message.content === "aula") {
+      var dia = date.getDay();
+      var horas = date.getHours();
+      var minutos = date.getMinutes();
 
-
-function listWorks(auth){
-  const classroom = google.classroom({version: 'v1', auth});
-  onServer()
-
-  client.on('message', message => {
-    if (message.content === 'historia') {
-      classroom.courses.courseWork.list({
-        courseId:60327930072,
-      },(err, res) => {
-        if (err) return console.error('The API returned an error: ' + err);
-        const courseWork = res.data.courseWork; 
-        if (courseWork && courseWork.length) {
-          console.log('Courses:');
-          const lastWork = courseWork.shift()
-          const embed = new MessageEmbed()
-          .setTitle(lastWork.title)
-          .setColor(0x0000FF)
-          .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-           //message.channel.send(embed);
-          Leo.send(embed)
-          
-        } else {
-          console.log('No courses found.');
-        }
-    
-      });
+      //segunda
+      if (dia == 1){
+      if (horas == 8 ||  horas == 9 && minutos < 30) {
+        getAula(message, "Química", "Christiane+Meire+Santos+Neves");
+      } else if (horas == 9 && minutos > 30 || horas == 10 && minutos < 15)
+         {
+        getAula(message, "Filosofia", "Leonardo+Caetano+Da+Silva");
+      } else if (horas == 10 && minutos > 34 || horas == 11) {
+        getAula(message, "Português", "Alexandre+José+Sposito");
+      } else if (horas == 12 && minutos < 46) {
+        getAula(message, "Física", "Antonio+Ullaco+Anselmi");
+      } else if (horas == 13) {
+        getAula(message, "Inglês", "Christiane+Canuto");
+      }
     }
-  });
 
-  client.on('message', message => {
-
-    if(message.content === 'fisica'){
-  classroom.courses.courseWork.list({
-    courseId:24205361123,
-     },(err, res) => {
-       if (err) return console.error('The API returned an error: ' + err);
-      const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-        Tony.send(embed);
-       //message.channel.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
-    }
-    
-  });
-}
-});
-
-client.on('message', message => {
-  if(message.content === 'portugues'){  
-
-  classroom.courses.courseWork.list({
-    courseId:60369455656,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-        Alexandre.send(embed);
-      
-    } else {
-      console.log('No courses found.');
-    }
-    
-  });
-}
-});
-
-client.on('message', message => {
-  if(message.content === 'geografia'){  
-
-  classroom.courses.courseWork.list({
-    courseId:60373040356,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-        Talita.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
-    }
-    
-  });
-}
-});
-
-client.on('message', message => {
-  if(message.content === 'matematica'){  
-
-  classroom.courses.courseWork.list({
-    courseId:61746734185,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-       Boris.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
-   }
-    
-  });
-}
-});
-
-  
-client.on('message', message => {
-  if(message.content === 'biologia'){  
-  
-  classroom.courses.courseWork.list({
-    courseId:60439137882,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-      Elaine.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
-    }
-    
-  });
-}
-});
-
-client.on('message', message => {
-  if(message.content === 'ingles'){  
-
-  classroom.courses.courseWork.list({
-    courseId:60421191545,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift()
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-       ChrisE.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
+       else if(dia ==  2){
+        //terça
+         if (horas == 8 || horas == 9 && minutos < 30) {
+          getAula(message, "Geografia", "Talita+De+Faria+Leite+Vivacqua");
+        } else if (horas == 10 && minutos > 35 || horas == 11 && minutos < 20)
+         {
+          getAula(message, "Ed.+Física", "Guilherme+Melanin+Silva");
+        } else if (horas == 11 && minutos > 20) {
+          getAula(message, "Redação", "Dolores+Alves+O.+Campos");
+        } else if (horas == 12) {
+          getAula(message, "Matemática", "Boris+Dos+Santos");
+        
+        
       }
     
-  });
-}
-});
+      }
 
+        //quarta
 
-client.on('message', message => {
-  if(message.content === 'quimica'){  
-  classroom.courses.courseWork.list({
-    courseId:60382416186,
-  },(err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const courseWork = res.data.courseWork;
-    if (courseWork && courseWork.length) {
-      console.log('Courses:');
-      const lastWork = courseWork.shift();
-      const embed = new MessageEmbed()
-      .setTitle(lastWork.title)
-      .setColor(0x0000FF)
-      .setDescription(lastWork.description + "\n Link:" + lastWork.alternateLink);
-        ChrisQ.send(embed);
-      
-
-    } else {
-      console.log('No courses found.');
-    }
-  });
+      else if(dia == 3){
+        if (horas == 7) {
+        getAula(message, "Maker", "Filipe+R.+Oliveira+Zertus");
+      } else if (horas == 8 && minutos > 45 || horas == 9) {
+        getAula(message, "Biologia", "Elaine+Aparecida+Monteiro");
+      } else if (horas == 10 && minutos > 35 || horas == 11) {
+        getAula(message, "Português", "Alexandre+José+Sposito");
+      }
     }
 
-  });
-
-
-  client.on('message', message => {
-    if(message.content === 'chamada'){
-      message.channel.send('Ta ai para você <3 \n Raphael Branco Pieroni \n Felipe Abreu Mendes \n Lucas Amano Shinohara \n  Thiago Tanaka Ferreira \n https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform');
+        //quinta
+      else if(dia ==  4){
+       if (horas == 7) {
+        getAula(message, "Sociologia", "Talita+De+Faria+Leite+Vivacqua");
+      } else if (horas == 8 && minutos > 45 || horas == 9 || horas == 10 && minutos < 15) {
+        getAula(message, "Matemática", "Boris+Dos+Santos");
+      } else if (horas == 10 && minutos > 35 || horas == 11) {
+        getAula(message, "História", "Leonardo+Caetano+Da+Silva");
+      } 
     }
-  })
-
-  client.on('message', message => {
-    var dia = date.getDay();
-    var horas = date.getHours();
-    var minutos = date.getMinutes();
-    if(dia == 1, horas >= 8 && horas < 10, minutos <= 30){
-      getAula(message, "quimica")
-    } else if(dia ==1, horas >= 9 && horas < 11, minutos < 15){
-      getAula(message, "filosofia")
-    } else if(dia == 1, horas >= 10 && horas <= 12)
+      //sexta
+      else if(dia ==  5){
+        if (horas == 7) {
+         getAula(message, "Sociologia", "Talita+De+Faria+Leite+Vivacqua");
+       } else if (horas == 8 && minutos > 45 || horas == 9 || horas == 10 && minutos < 15) {
+         getAula(message, "Matemática", "Boris+Dos+Santos");
+       } else if (horas == 10 && minutos > 35 || horas == 11) {
+         getAula(message, "História", "Leonardo+Caetano+Da+Silva");
+       } 
+  
+      }
     
+    else {
+      getAula(message, "Liberdade!", null);
     }
-  )
-
+    }
+  });
 }
 
-
-
-
- 
-
-
-  //cliente id: 720654947304-3pgktkcb90rbtp5q8p5hi5f5pgjbmktm.apps.googleusercontent.com
-  // client secre: 3Z4iiV--DxVnF1AaOyryHGa9
+//cliente id: 720654947304-3pgktkcb90rbtp5q8p5hi5f5pgjbmktm.apps.googleusercontent.com
+// client secre: 3Z4iiV--DxVnF1AaOyryHGa9
