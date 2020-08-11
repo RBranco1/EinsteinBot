@@ -7,6 +7,8 @@ const client = new Discord.Client();
 
 var date = new Date();
 
+var dayjs = require("dayjs")
+
 const Tony = new Discord.WebhookClient(
   "725459542384836719",
   "FQRXsk_1v0rxs-ebx03yEaDyxfxfu45vnEcpgt0VmaB9z54a2KdFFpNfBKY4qrCrMRuB"
@@ -39,6 +41,16 @@ const ChrisE = new Discord.WebhookClient(
   "725498661941018705",
   "bj3kidsGvkCDZNR-MV1GqAQA7U4BwVcJdSo8k41_F8xGYWeWcS61-TjW9uLvXDJPyX4X"
 );
+
+const Hitler = new Discord.WebhookClient(
+  "742402913317683272",
+  "aOXKslBrEHIfwsBYGzeBERKdERIbQncUutuQLXEBIwMqPp1klHGCclakBOxZP9y1zQPO"
+);
+const Trivago = new Discord.WebhookClient(
+  "742406264885084240",
+  "ZtJcMzOQJ-J59y50cVkntiXp0eXXgJhCLH9C-YgPOGRqtQs8_wtgfPF_rTyq2vApaCfy"
+);
+
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/classroom.coursework.me"];
@@ -113,14 +125,28 @@ function getNewToken(oAuth2Client, callback) {
  */
 function onServer() {
   client.on("ready", () => {
-    console.log("I am ready!");
+    console.log("Eureca!");
+    client.user.setActivity("escreva 'eureca' e lança a braba ");
   });
-  client.login("");
+  client.login("NzI1ODcyNjI2NDE2NzQ2NDk3.XwxTTg.jt6kldzhaVHfQZF2lpslgmpKVjA");
+ 
 }
 
 function listWorks(auth) {
   const classroom = google.classroom({ version: "v1", auth });
   onServer();
+
+  client.on("message",(message) => {
+    if(message.content === "eureca"){
+      message.channel.send("Aulas que funcionam(por enquanto)\n portugues \n redação \n biologia \n matematica \n geografia \n sociologia \n ingles \n historia \n filosofia \n quimica \n fisica \n tcc \n maker \n aula \n chamada \n boa noite!   ")
+    }
+  })
+
+  client.on("message",(message)=>{
+    if(message.content === "boa noite!"){
+      message.channel.send("Boa dia, animal")
+    }
+  })
 
   client.on("message", (message) => {
     if (message.content === "historia") {
@@ -347,6 +373,137 @@ function listWorks(auth) {
   });
 
   client.on("message", (message) => {
+    if (message.content === "filosofia") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60371409098,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Leo.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+  client.on("message", (message) => {
+    if (message.content === "maker") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 40356280324,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Trivago.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+  client.on("message", (message) => {
+    if (message.content === "sociologia") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60373040364,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Talita.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+  client.on("message", (message) => {
+    if (message.content === "tcc") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60382416201,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Hitler.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+  client.on("message", (message) => {
+    if (message.content === "redação") {
+      classroom.courses.courseWork.list(
+        {
+          courseId: 60327158802,
+        },
+        (err, res) => {
+          if (err) return console.error("The API returned an error: " + err);
+          const courseWork = res.data.courseWork;
+          if (courseWork && courseWork.length) {
+            console.log("Courses:");
+            const lastWork = courseWork.shift();
+            const embed = new MessageEmbed()
+              .setTitle(lastWork.title)
+              .setColor(0x0000ff)
+              .setDescription(
+                lastWork.description + "\n Link:" + lastWork.alternateLink
+              );
+            Alexandre.send(embed);
+          } else {
+            console.log("No courses found.");
+          }
+        }
+      );
+    }
+  });
+
+  client.on("message", (message) => {
     if (message.content === "chamada") {
       message.channel.send(
         `Ta ai para você <3 \n Raphael Branco Pieroni \n Felipe Abreu Mendes \n Lucas Amano Shinohara \n  Thiago Tanaka Ferreira \n  https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1550906963=A&entry.75214940=${"Elaine+Aparecida+Monteiro"}&entry.1232749539=${"Biologia"}`
@@ -361,7 +518,19 @@ function listWorks(auth) {
 4(professor) = 75214940
 5(aula) = 1232749539 */
 
+function newTime(){
+  time = {
+    seconds: date.getSeconds(),
+     dia : date.getDay(),
+     horas : date.getHours(),
+     minutos : date.getMinutes(),
+     atest: date.toLocaleString(),
+  };
 
+  console.log(time.atest)
+  return time
+
+}
   function getAula(message, aula, name) {
     message.channel.send(
       "Bom dia! parece que a aula agora é... **" +
@@ -374,43 +543,44 @@ https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnI
 https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Lucas+Amano+Shinohara&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
 \nThiago Tanaka Ferreira \n
 https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnIXjbcwoFO2Q/viewform?usp=pp_url&entry.516042267=3º+EM&entry.1194150185=Thiago+Tanaka+Ferreira&entry.1550906963=A&entry.75214940=${name}&entry.1232749539=${aula}
-`
-        
-    );
+\n `
+
+
+    ),  
+    console.log("reset");
+    console.log(dayjs().date());
   }
 
   client.on("message", (message) => {
-    if (message.content === "aula") {
-      var dia = date.getDay();
-      var horas = date.getHours();
-      var minutos = date.getMinutes();
+    if (message.content === "aula" || message.content === "Aula") {
+      newTime()
 
       //segunda
-      if (dia == 1){
-      if (horas == 8 ||  horas == 9 && minutos < 30) {
+      if (time.dia == 1){
+      if (time.horas == 8 ||  time.horas == 9 && time.minutos < 30) {
         getAula(message, "Química", "Christiane+Meire+Santos+Neves");
-      } else if (horas == 9 && minutos > 30 || horas == 10 && minutos < 15)
+      } else if (time.horas == 9 && time.minutos > 30 || time.horas == 10 && time.minutos < 15)
          {
         getAula(message, "Filosofia", "Leonardo+Caetano+Da+Silva");
-      } else if (horas == 10 && minutos > 34 || horas == 11) {
+      } else if (time.horas == 10 && time.minutos > 34 || time.horas == 11) {
         getAula(message, "Português", "Alexandre+José+Sposito");
-      } else if (horas == 12 && minutos < 46) {
+      } else if (time.horas == 12 && time.minutos < 46) {
         getAula(message, "Física", "Antonio+Ullaco+Anselmi");
-      } else if (horas == 13) {
+      } else if (time.horas == 13 || time.horas ==  12 && time.minutos > 45) {
         getAula(message, "Inglês", "Christiane+Canuto");
       }
     }
 
-       else if(dia ==  2){
+       else if(time.dia ==  2){
         //terça
-         if (horas == 8 || horas == 9 && minutos < 30) {
+         if (time.horas == 8 || time.horas == 9 && time.minutos < 30) {
           getAula(message, "Geografia", "Talita+De+Faria+Leite+Vivacqua");
-        } else if (horas == 10 && minutos > 35 || horas == 11 && minutos < 20)
+        } else if (time.horas == 10 && time.minutos > 35 || time.horas == 11 && time.minutos < 20)
          {
           getAula(message, "Ed.+Física", "Guilherme+Melanin+Silva");
-        } else if (horas == 11 && minutos > 20) {
+        } else if (time.horas == 11 && time.minutos > 20) {
           getAula(message, "Redação", "Dolores+Alves+O.+Campos");
-        } else if (horas == 12) {
+        } else if (time.horas == 12) {
           getAula(message, "Matemática", "Boris+Dos+Santos");
         
         
@@ -420,35 +590,39 @@ https://docs.google.com/forms/d/e/1FAIpQLSf_z-VUR2sM9ROYIioE02LJhWQXkOXTireH0DnI
 
         //quarta
 
-      else if(dia == 3){
-        if (horas == 7) {
+      else if(time.dia == 3){
+        if (time.horas == 7) {
         getAula(message, "Maker", "Filipe+R.+Oliveira+Zertus");
-      } else if (horas == 8 && minutos > 45 || horas == 9) {
+      } else if (time.horas == 8 && time.minutos > 45 || time.horas == 9) {
         getAula(message, "Biologia", "Elaine+Aparecida+Monteiro");
-      } else if (horas == 10 && minutos > 35 || horas == 11) {
+      } else if (time.horas == 10 && time.minutos > 35 || time.horas == 11) {
         getAula(message, "Português", "Alexandre+José+Sposito");
       }
     }
 
         //quinta
-      else if(dia ==  4){
-       if (horas == 7) {
+      else if(time.dia ==  4){
+       if (time.horas == 7) {
         getAula(message, "Sociologia", "Talita+De+Faria+Leite+Vivacqua");
-      } else if (horas == 8 && minutos > 45 || horas == 9 || horas == 10 && minutos < 15) {
+      } else if (time.horas == 8 && time.minutos > 45 || time.horas == 9 || time.horas == 10 && time.minutos < 15) {
         getAula(message, "Matemática", "Boris+Dos+Santos");
-      } else if (horas == 10 && minutos > 35 || horas == 11) {
+      } else if (time.horas == 10 && time.minutos > 35 || time.horas == 11) {
         getAula(message, "História", "Leonardo+Caetano+Da+Silva");
       } 
     }
       //sexta
-      else if(dia ==  5){
-        if (horas == 7) {
-         getAula(message, "Sociologia", "Talita+De+Faria+Leite+Vivacqua");
-       } else if (horas == 8 && minutos > 45 || horas == 9 || horas == 10 && minutos < 15) {
-         getAula(message, "Matemática", "Boris+Dos+Santos");
-       } else if (horas == 10 && minutos > 35 || horas == 11) {
-         getAula(message, "História", "Leonardo+Caetano+Da+Silva");
-       } 
+      else if(time.dia ==  5){
+        if (time.horas == 7 && minutos > 15) {
+         getAula(message, "Geografia", "Talita+De+Faria+Leite+Vivacqua");
+       } else if (time.horas == 8 && time.minutos < 45) {
+         getAula(message, "TCC", "Christiane+Meire+Santos+Neves");
+       } else if (time.horas == 8 && time.minutos > 45 || time.horas == 9 && time.minutos < 30 ) {
+         getAula(message, "Química", "Christiane+Meire+Santos+Neves");
+       } else if (time.horas == 10 && time.minutos > 35 || time.horas == 11) {
+        getAula(message, "Biologia", "Elaine+Aparecida+Monteiro");
+      } else if (time.horas == 15 || time.horas == 13 && time.minutos < 30) {
+        getAula(message, "Física", "Antonio+Ullaco+Anselmi");
+      } 
   
       }
     
