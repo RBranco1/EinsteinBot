@@ -1,1 +1,1 @@
-worker: node src/auth.js
+worker: node src/index.js
