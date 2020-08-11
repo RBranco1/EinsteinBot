@@ -128,7 +128,7 @@ function onServer() {
     console.log("Eureca!");
     client.user.setActivity("escreva 'eureca' e lança a braba ");
   });
-  client.login("NzI1ODcyNjI2NDE2NzQ2NDk3.XwxTTg.jt6kldzhaVHfQZF2lpslgmpKVjA");
+  client.login("NzI1ODcyNjI2NDE2NzQ2NDk3.XvVDkA.90_spYpOngZtrlcD391hqTvzJi8");
  
 }
 
